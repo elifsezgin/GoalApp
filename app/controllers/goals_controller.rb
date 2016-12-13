@@ -1,4 +1,5 @@
 class GoalsController < ApplicationController
+  before_action :require_log_in
 
 
   def index
@@ -20,7 +21,7 @@ class GoalsController < ApplicationController
     @goal = Goal.new(goal_params)
     @goal.user_id = current_user.id
     if @goal.save
-      redirect_to goal_url(goal)
+      redirect_to goal_url(@goal)
     else
       flash[:errors] = @goal.errors.full_messages
       redirect_to new_goal_url
